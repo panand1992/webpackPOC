@@ -1,10 +1,14 @@
-//var Backbone.Modal = require('backbone.modal'); 
-var Marionette = require('backbone.marionette');
+var Backbone= require('backbone'); 
 
-var FilterPanelModal = Marionette.LayoutView.extend({
-	template: require('../../templates/modals/filterPanel.html'),
+var FilterPanelModal = Backbone.Modal.extend({
+	template: require('../../templates/modals/filterPanel.hbs'),
 
 	tagName: 'div',
+
+	model: new Backbone.Model({
+        name: "SAM",
+        count: 0
+    }),
 
 	initialize: function (options) {
       	_.extend(this,options);

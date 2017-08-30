@@ -1,6 +1,6 @@
 var Backbone = require('backbone'); 
 var Marionette = require('backbone.marionette');
-//var materialize = require('materialize-css/dist/js/materialize.js');
+var materialize = require('materialize');
 
 var nbHomePage = Marionette.ItemView.extend({
 	template: require('../templates/home/homePageView.html'),
@@ -24,7 +24,7 @@ var nbHomePage = Marionette.ItemView.extend({
 
       	//$('body').css('overflow-y', "visible");
 
-      	//$('ul.tabs.homeTabs').tabs();
+      	$('ul.tabs.homeTabs').tabs();
       	// var selectedCategory = utils.readCookie('nbpt');
 
       	// if(selectedCategory) {
