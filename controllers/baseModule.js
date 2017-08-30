@@ -75,7 +75,7 @@ var BaseModule = Marionette.Object.extend({
 	           //  	self.chatUtil.initSocket(self.userModel);
 	          	// }
 	          	self.pageHeaderView = new PageHeaderView({
-		            //userModel: self.userModel,
+		            userModel: self.userModel,
 		            currentView: currentView,
 		            modelOptions: modelOptions,
 		            //chatUtil: self.chatUtil,
@@ -89,7 +89,7 @@ var BaseModule = Marionette.Object.extend({
       	else {
         	if (!this.pageHeaderView || this.pageHeaderView.isDestroyed){
 	          	this.pageHeaderView = new PageHeaderView({
-	            	//userModel: this.userModel,
+	            	userModel: this.userModel,
 	            	currentView: currentView,
 	            	//chatUtil: this.chatUtil,
 	            	optionParams: options

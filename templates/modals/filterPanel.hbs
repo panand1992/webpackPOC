@@ -1,0 +1,436 @@
+<div id="filterPanel" class="nbModal filterPanelModal">
+	{{#ifCond showPage '==' 'filters'}}
+		<div class="bbm-modal__topbar">
+			<h3 class="modalHeaderTitle">Filter By</h3>
+		  	<div class="closeBtn"></div>
+		</div>
+		<div class="resetBtn" data-action="resetFilters"><i class="fa fa-refresh"></i></div>
+	{{/ifCond}}
+
+	<div class="bbm-modal__section">
+		{{#ifCond showPage '==' 'search'}}
+		<ul class="tabs homeTabs searchTabs">
+			<li class="tab col homeTab searchTab"><a class="category {{#ifCond viewCategory '==' 'sale'}}active{{/ifCond}}" href="#searchSale" data-category="BUY" data-action="searchSale">Buy</a></li>
+			<li class="tab col homeTab searchTab"><a class="category {{#ifCond viewCategory '==' 'rent'}}active{{/ifCond}}" href="#searchRent" data-category="RENT" data-action="searchRent">Rent</a></li>
+			<li class="tab col homeTab searchTab"><a class="category {{#ifCond viewCategory '==' 'pg'}}active{{/ifCond}}" href="#searchSale" data-category="PG" data-action="searchPg">PG</a></li>
+			<li class="tab col homeTab searchTab"><a class="category {{#ifCond viewCategory '==' 'shared'}}active{{/ifCond}}" href="#searchSale" data-category="SHARED" data-action="searchShared">Flatmates</a></li>
+		</ul>
+		<div class="nbdropdown-wrapper">
+			<div id="citySelector" class="dropdown citySelector" data-action="cityDropdown">
+				<span class="displayCity" id="displayCity">Bangalore</span>
+				<i class="fa fa-caret-down downIcon cityDropdownArrow"></i>
+				<ul class="dropdown-menu" id="cityDropDownMenu">
+					<li><a href="#" data-action="selectCity" data-text="Mumbai" data-value="mumbai">Mumbai</a></li>
+					<li><a href="#" class="selectedcity" data-action="selectCity" data-text="Bangalore" data-value="bangalore" data-selected="true">Bangalore</a></li>
+					<li><a href="#" class="selectedcity" data-action="selectCity" data-text="Pune" data-value="pune" data-selected="true">Pune</a></li>
+					<li><a href="#" class="selectedcity" data-action="selectCity" data-text="Chennai" data-value="chennai" data-selected="true">Chennai</a></li>
+					<li><a href="#" class="selectedcity" data-action="selectCity" data-text="Gurgaon" data-value="gurgaon" data-selected="true">Gurgaon</a></li>
+				</ul>
+			</div>
+		</div>
+		{{/ifCond}}
+		<div class="filterGroup">
+			<div class="locationInputGroup customInputWrapper valign-wrapper">
+				<i class="fa fa-map-marker prefixIcon col s1"></i>
+	            <input id="localitySearch" type="text" placeholder="Search by locality or landmark" class="localityFilter" data-action="onLocalitySearch"/>
+	            <a href="#"  data-action="clearSearchBox"><i class="fa fa-times" ></i></a>
+	            {{#ifCond showPage '==' 'search'}}
+	            <div class="center">
+	            	<div class="currentLoc" data-action="getCurrentLocation">
+						<i class="fa fa-crosshairs" data-action="getCurrentLocation"></i>
+					</div>
+	            </div>
+	            {{/ifCond}}
+	        </div>
+
+			<div class="col s12 hide recentSearch" id="recentSearch">
+				<div class="recentSearchCity" id="recentSearchCity">
+				</div>
+			</div>
+		</div>
+		<div class="col s12 filterGroup nearbyFilter hide noPadding">
+			<input id="includeNearby" class="filled-in" type="checkbox" name="nearby" value="true">
+			<label class="peakTrafficLabel" for="includeNearby">Include Nearby Properties</label>
+		</div>
+
+		<div class="travelTimeWrapper hide filterGroup">
+			<div class="col s12 travelTimeCol" data-filtertype="travelTime">
+				<h6 class="topPad filterHeader">Travel Time <sup>New!</sup></h6>
+				<div class="btn-group row btn-togglegroup">
+					<div class="col s3">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="15">15</a>
+					</div>
+					<div class="col s3">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="30">30</a>
+					</div>
+					<div class="col s3">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="45">45</a>
+					</div>
+					<div class="col s3">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="60">60</a>
+					</div>
+					<div  class="col s12">
+						<input id="peakTraffic" class="filled-in" type="checkbox" name="peakTraffic" value="true">
+						<label class="peakTrafficLabel" for="peakTraffic">Peak Traffic</label>
+					</div>
+				</div>
+			</div>
+		</div>
+		{{#ifCond showPage '==' 'filters'}}
+		<div class="filterGroup" data-filtertype="sortBy">
+			<h6 class="topPad filterHeader">Sort By</h6>
+			<div class="btn-group clearfix btn-togglegroup">
+				<div id="sortSelector" class="dropdown sortSelector" data-action="sortDropdown">
+					<span class="displaySort" id="displaySort">NoBroker Rank</span>
+					<i class="fa fa-caret-down downIcon"></i>
+					<ul class="dropdown-menu" id="sortDropDownMenu">
+						<li><a href="#" data-action="selectSort" data-selected="true" data-value="nbRank,desc">NoBroker Rank</a></li>
+						<li><a href="#" class="selectedsort" data-action="selectSort" data-value="lastUpdateDate,desc">Posted On (Newest First)</a></li>
+						<li><a href="#" class="selectedsort" data-action="selectSort" data-value="lastUpdateDate,asc">Posted On (Oldest First)</a></li>
+						<li><a href="#" class="selectedsort" data-action="selectSort" data-value="rent,asc">
+							{{#ifCond viewCategory '!=' 'sale'}}Rent{{else}}Price{{/ifCond}} (Low to High)</a></li>
+						<li><a href="#" class="selectedsort" data-action="selectSort" data-value="rent,desc">
+							{{#ifCond viewCategory '!=' 'sale'}}Rent{{else}}Price{{/ifCond}} (High to Low)</a></li>
+						<li><a href="#" class="selectedsort" data-action="selectSort" data-value="availableFrom,asc">Available From (Earliest First)</a></li>
+						<li><a href="#" class="selectedsort" data-action="selectSort" data-value="availableFrom,desc">Available From (Oldest First)</a></li>
+		      		</ul>
+		      	</div>
+			</div>
+		</div>
+		{{/ifCond}}
+		{{#ifCond viewCategory '==' 'shared'}}
+		<div class="filterGroup " data-filtertype="accomodationType">
+			<h6 class="topPad filterHeader">Accomodation Type</h6>
+			<div class="btn-group row btn-togglegroup">
+				<div class="col s6">
+					<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="SHARED_ROOM">Shared</a>
+				</div>
+				<div class="col s6">
+					<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="PRIVATE_ROOM">Single</a>
+				</div>
+			</div>
+		</div>
+		<div class="filterGroup " data-filtertype="tenantType">
+			<h6 class="topPad filterHeader">Gender</h6>
+			<div class="btn-group row btn-togglegroup">
+				<div class="col s6">
+					<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="MALE">Male</a>
+				</div>
+				<div class="col s6">
+					<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="FEMALE">Female</a>
+				</div>
+			</div>
+		</div>
+		{{/ifCond}}
+
+		{{#ifCond viewCategory '===' 'pg'}}
+			<div class="filterGroup" data-filtertype="gender">
+				<h6 class="topPad filterHeader">Gender</h6>
+				<div class="btn-group row btn-togglegroup">
+					<div class="col s6">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="MALE">Male</a>
+					</div>
+					<div class="col s6">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="FEMALE">Female</a>
+					</div>
+				</div>
+			</div>
+			<div class="filterGroup" data-filtertype="occupancy">
+				<h6 class="topPad filterHeader">Occupancy</h6>
+				<div class="btn-group row">
+					<div class="col s6">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="SINGLE">Single Room</a>
+					</div>
+					<div class="col s6">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="DOUBLE">Double Sharing</a>
+					</div>
+					<div class="col s6">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="THREE">Triple Sharing</a>
+					</div>
+					<div class="col s6">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="FOUR">Four Sharing</a>
+					</div>
+				</div>
+			</div>
+		{{/ifCond}}
+		{{#ifCond viewCategory '==' 'rent'}}
+	 		<div class="filterGroup" data-filtertype="type">
+				<h6 class="topPad filterHeader">Number of Bedrooms</h6>
+				<div class="btn-group row">
+					<div class="col s4">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="RK1">1 RK</a>
+					</div>
+					<div class="col s4">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="BHK1">1 BHK</a>
+					</div>
+					<div class="col s4">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="BHK2">2 BHK</a>
+					</div>
+					<div class="col s4">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="BHK3">3 BHK</a>
+					</div>
+					<div class="col s4">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="BHK4">4 BHK</a>
+					</div>
+					<div class="col s4">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="BHK4PLUS">4+ BHK</a>
+					</div>
+				</div>
+			</div>
+		{{/ifCond}}
+		{{#ifCond viewCategory '==' 'sale'}}
+	 		<div class="filterGroup" data-filtertype="type">
+				<h6 class="topPad filterHeader">Number of Bedrooms</h6>
+				<div class="btn-group row">
+					<div class="col s4">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="RK1">1 RK</a>
+					</div>
+					<div class="col s4">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="BHK1">1 BHK</a>
+					</div>
+					<div class="col s4">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="BHK2">2 BHK</a>
+					</div>
+					<div class="col s4">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="BHK3">3 BHK</a>
+					</div>
+					<div class="col s4">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="BHK4">4 BHK</a>
+					</div>
+					<div class="col s4">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="BHK4PLUS">4+ BHK</a>
+					</div>
+				</div>
+			</div>
+		{{/ifCond}}
+		{{#ifCond viewCategory '!=' 'sale'}}
+		<div class="filterGroup rentField">
+			<div class="rent-range" id="rentRange">Rent Range:
+				<span class="lowerRange" id="rentRangeLower"></span>
+				to
+				<span class="upperRange" id="rentRangeUpper"></span>
+			</div>
+			<div class="rentRangeSlider" id="searchRentRange"></div>
+		</div>
+		{{else}}
+		{{#ifCond showPage '==' 'filters'}}
+		<div class="filterGroup" data-filtertype="propType">
+			<h6 class="topPad filterHeader">Property type</h6>
+			<div class="btn-group row">
+				<div class="col s4">
+					<a href="#" class="btn btn-flat leftCurved" data-role="toggleBtn" data-value="AP">Apartment</a>
+				</div>
+				<div class="col s8">
+					<a href="#" class="btn btn-flat rightCurved" data-role="toggleBtn" data-value="IH">Independent House/Villa</a>
+				</div>
+				<div class="col s12">
+					<a href="#" class="btn btn-flat curved" data-role="toggleBtn" data-value="IF">Independent Floor/Builder Floor</a>
+				</div>
+			</div>
+		</div>
+		{{/ifCond}}
+		<div class="filterGroup rentField">
+			<div class="sale-range" id="saleRange">Price Range:
+				<span class="lowerRange" id="saleRangeLower"></span>
+				to
+				<span class="upperRange" id="saleRangeUpper"></span>
+			</div>
+			<div class="saleRangeSlider" id="searchSaleRange"></div>
+		</div>
+		{{/ifCond}}
+		{{#ifCond showPage '==' 'filters'}}
+			{{#ifCond viewCategory '==' 'rent'}}
+				<div class="filterGroup" data-filtertype="furnishing">
+					<h6 class="topPad filterHeader">Furnishing Type</h6>
+					<div class="btn-group row">
+						<div class="col s4">
+							<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="FULLY_FURNISHED">Full</a>
+						</div>
+						<div class="col s4">
+							<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="SEMI_FURNISHED">Semi</a>
+						</div>
+						<div class="col s4">
+							<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="NOT_FURNISHED">None</a>
+						</div>
+					</div>
+				</div>
+			{{/ifCond}}
+			{{#ifCond viewCategory '==' 'shared'}}
+			<div class="filterGroup" data-filtertype="propType">
+				<h6 class="topPad filterHeader">Property type</h6>
+				<div class="btn-group row">
+					<div class="col s4">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="AP">Apartment</a>
+					</div>
+					<div class="col s8">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="IH">Independent House/Villa</a>
+					</div>
+					<div class="col s12">
+						<a href="#" class="btn btn-flat curved" data-role="toggleBtn" data-value="IF">Independent Floor/Builder Floor</a>
+					</div>
+				</div>
+			</div>
+			{{/ifCond}}
+			{{#ifCond viewCategory '==' 'rent'}}
+			<div class="filterGroup" data-filtertype="buildingType">
+				<h6 class="topPad filterHeader">Property type</h6>
+				<div class="btn-group row">
+					<div class="col s4">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="AP">Apartment</a>
+					</div>
+					<div class="col s8">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="IH">Independent House/Villa</a>
+					</div>
+					<div class="col s12">
+						<a href="#" class="btn btn-flat curved" data-role="toggleBtn" data-value="IF">Independent Floor/Builder Floor</a>
+					</div>
+				</div>
+			</div>
+			{{/ifCond}}
+			{{#ifCond viewCategory '==' 'sale'}}
+			<div class="filterGroup" data-filtertype="propertyAge">
+				<h6 class="topPad filterHeader">Property Status</h6>
+				<div class="btn-group row btn-togglegroup">
+					<div class="col s7">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="-1">Under Construction</a>
+					</div>
+					<div class="col s5">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="0">Ready</a>
+					</div>
+				</div>
+			</div>
+			{{/ifCond}}
+
+			{{#ifCond viewCategory '==' 'rent'}}
+			<div class="filterGroup" data-filtertype="parking">
+				<h6 class="topPad filterHeader">Parking</h6>
+				<div class="btn-group row">
+					<div class="col s6">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="TWO_WHEELER">2 Wheeler</a>
+					</div>
+					<div class="col s6">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="FOUR_WHEELER">4 Wheeler</a>
+					</div>
+				</div>
+			</div>
+			{{/ifCond}}
+			{{#ifCond viewCategory '!=' 'pg'}}
+			<div class="filterGroup bathrooms" data-filtertype="bathroom">
+				<h6 class="topPad filterHeader">Bathrooms</h6>
+				<div class="btn-group row btn-togglegroup">
+					<div class="col s2 controls minus">
+						<span></span>
+					</div>
+					<div class="col s8 value">
+						<a href="#" class="btn btn-flat toggled" data-value="1">1+</a>
+						<a href="#" class="btn btn-flat" data-value="2">2+</a>
+						<a href="#" class="btn btn-flat" data-value="3">3+</a>
+					</div>
+					<div class="col s2 controls plus">
+						<span></span>
+					</div>
+				</div>
+			</div>
+			{{else}}
+				<div class="filterGroup" data-filtertype="availableFor">
+					<h6 class="topPad filterHeader">Preferred Tenants</h6>
+					<div class="btn-group row btn-togglegroup">
+						<div class="col s4">
+							<a href="#" class="btn btn-flat leftCurved" data-role="toggleBtn" data-value="STUDENT">Student</a>
+						</div>
+						<div class="col s4">
+							<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="PROFESSIONAL">Employed</a>
+						</div>
+						<div class="col s4">
+							<a href="#" class="btn btn-flat rightCurved" data-role="toggleBtn" data-value="BOTH">Both</a>
+						</div>
+					</div>
+				</div>
+				<div class="filterGroup" data-filtertype="attachBathroom">
+				<h6 class="topPad filterHeader">Attached Bathroom</h6>
+				<div class="btn-group row btn-togglegroup">
+					<div class="col s6">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="true">Yes</a>
+					</div>
+					<div class="col s6">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="false">No</a>
+					</div>
+				</div>
+			</div>
+			{{/ifCond}}
+			{{#ifCond viewCategory '==' 'pg'}}
+				<div class="filterGroup" data-filtertype="food">
+					<h6 class="topPad filterHeader">Food Included</h6>
+					<div class="btn-group row">
+						<div class="col s4">
+							<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="BREAKFAST"> Breakfast </a>
+						</div>
+						<div class="col s4">
+							<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="LUNCH"> Lunch </a>
+						</div>
+						<div class="col s4">
+							<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="DINNER"> Dinner </a>
+						</div>
+					</div>
+				</div>
+			{{/ifCond}}
+			{{#ifCond viewCategory '===' 'rent'}}
+				<div class="filterGroup" data-filtertype="leaseType">
+					<h6 class="topPad filterHeader">Preferred Tenants</h6>
+					<div class="btn-group row">
+						<div class="col s4">
+							<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="FAMILY">Family</a>
+						</div>
+						<div class="col s4">
+							<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="BACHELOR">Bachelors</a>
+						</div>
+						<div class="col s4">
+							<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="COMPANY">Company</a>
+						</div>
+					</div>
+				</div>
+			{{/ifCond}}
+
+			{{#ifCond viewCategory '!=' 'pg'}}
+				<div class="filterGroup amenities" data-filtertype="amenities">
+					<h6 class="topPad filterHeader">Amenities</h6>
+					<div class="btn-group row">
+						<div class="col s3">
+							<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="gym" data-amenity>Gym</a>
+						</div>
+						<div class="col s6">
+							<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="swimmingPool" data-amenity>Swimming Pool</a>
+						</div>
+						<div class="col s3">
+							<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="lift" data-amenity>Lift</a>
+						</div>
+					</div>
+				</div>
+			{{/ifCond}}
+			<div class="filterGroup">
+				<h6 class="topPad filterHeader">Show Only</h6>
+				<div class="btn-group row">
+					{{#ifCond viewCategory '==' 'rent'}}
+					<div class="col s6" data-filtertype="leaseOnly">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="1">Lease properties</a>
+					</div>
+					<div class="col s6" data-filtertype="withPics">
+						<a href="#" class="btn btn-flat" data-role="toggleBtn" data-value="1">With Photos</a>
+					</div>
+					{{else}}
+					<div class="col s12" data-filtertype="withPics">
+						<a href="#" class="btn btn-flat curved" data-role="toggleBtn" data-value="1">With Photos</a>
+					</div>
+					{{/ifCond}}
+				</div>
+			</div>
+		{{/ifCond}}
+	</div>
+	{{#ifCond showPage '==' 'filters'}}
+	<a href="#" class="bbm-modal__bottombar filterApplyBtn" data-action="applyFilters">Apply Filters</a>
+	{{else}}
+	{{!-- <div class="col s12 searchBtnHolder"> --}}
+	<a href="#" class="btn btn-flat btn-search" data-action="onSearchProperty">Search</a>
+	{{!-- </div> --}}
+	{{/ifCond}}
+</div>

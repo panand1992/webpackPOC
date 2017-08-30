@@ -3,14 +3,39 @@
 <head>
 	<title>Webpack POC</title>
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<link rel="stylesheet" type="text/css" href="https://assets.nobroker.in/mobile/dist/styles/vendorMain.css">
-	<link rel="stylesheet" type="text/css" href="https://assets.nobroker.in/mobile/dist/styles/main.css">
 	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 	<div id="rootContent"></div>
-	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.1/js/materialize.min.js"></script>
+	<script>
+        var loadDeferredStyles = function() {
+            var styles1 = document.createElement('link');
+            styles1.rel = 'stylesheet';
+            styles1.type = 'text/css';
+            styles1.href = 'https://www.nobroker.in/mobile/dist/styles/vendorMain.css';
+            document.getElementsByTagName('head')[0].appendChild(styles1); 
+            var styles2 = document.createElement('link');
+            styles2.rel = 'stylesheet';
+            styles2.type = 'text/css';
+            styles2.href = 'https://www.nobroker.in/mobile/dist/styles/main.css';
+            document.getElementsByTagName('head')[0].appendChild(styles2); 
+
+            var styles3 = document.createElement('link');
+            styles3.rel = 'stylesheet';
+            styles3.type = 'text/css';
+            styles3.href = 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css';
+            document.getElementsByTagName('head')[0].appendChild(styles3); 
+        };
+        var raf = requestAnimationFrame || mozRequestAnimationFrame || webkitRequestAnimationFrame || msRequestAnimationFrame;
+        if (typeof raf !== 'undefined' && raf != null) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
+        else window.addEventListener('load', loadDeferredStyles);
+    </script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 	<script type="text/javascript" src="bundle.min.js"></script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
+	<script type="text/javascript" src="lib/backbone.modal-min.js"></script>
+	<!-- <script type="text/javascript" src="templates/modals/filterPanel.js"></script> -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.10/handlebars.min.js"></script>
+    <script type="text/javascript" src="helpers/helpers.js"></script>
 </body>
 </html>

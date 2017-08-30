@@ -25,7 +25,7 @@ var HomeModule = BaseModule.extend({
           	headerOptions = {currentView: 'homePage'};
 
       	var homePageView = new HomepageView({
-        	//model: this.userModel,
+        	model: this.userModel,
         	queryParams: queryParams
       	});
 

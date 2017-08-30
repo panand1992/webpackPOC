@@ -1,8 +1,8 @@
 var Marionette = require('backbone.marionette'); 
 var NbRootView = require('./views/nbRootView');
 var NavController = require('./controllers/navController');
-
 var Routers = require('./routers/router');
+var userModel = require('./models/userModel');
 
 var nbApp = new Marionette.Application();
 
@@ -16,12 +16,13 @@ nbApp.on('start', function(){
       	//subContentRegion: nbRootView.getRegion('subContent'),
       	footerRegion: nbRootView.getRegion('footer'),
       	//modalsRegion: nbRootView.getRegion('modals'),
-      	// userModel: userModel,
+      	//userModel: userModel,
       	// chatUtil: chatUtil
     };
+
     this.routers = new Routers({
       	//rootView: nbRootView,
-      	controller: new NavController(options)
+      	controller: new NavController(options),
       	//userModel: userModel
     });
 });

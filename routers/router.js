@@ -5,7 +5,6 @@ var Router = CustomRouter.extend({
   	appRoutes: allRoutes.pages,
 
   	initialize: function(options) {
-	  	console.log("oye");
 	  	_.extend(this,options);
   	}
 });

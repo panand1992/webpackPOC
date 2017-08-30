@@ -9,20 +9,6 @@ var NavController = BaseNavModule.extend({
       	_.extend(this,options);
   	},
 
-  	// home: function(params) {
-  	// 	//this.getModule('home', arguments);
-  	// 	console.log("home mil gaya");
-  	// 	var homePageView = new HomepageView();
-  	// 	var pageHeaderView = new PageHeaderView();
-  	// 	var homePageRegion = this.getOption('contentRegion');
-  	// 	var pageHeaderRegion = this.getOption('headerRegion');
-  	// 	homePageRegion.show(homePageView);
-  	// 	pageHeaderRegion.show(pageHeaderView);
-  	// 	//this.showChildView('layout', list);
-	  //   //var layout = this.getOption('layout');
-	  //   //layout.triggerMethod('show:blog:list');
-  	// }
-
   	/* Home Module - Starts */
     home: function (params) {
       	this.getModule('home', arguments);
@@ -34,6 +20,43 @@ var NavController = BaseNavModule.extend({
 
     searchPage: function (city,searchCategory) {
       	this.getModule('searchPage', arguments);
+    },
+
+    /* Rental Agreement*/
+    showRentalAgreementMobile: function () {
+        this.getModule('showRentalAgreementMobile', arguments);
+    },
+
+    showRentalAgreement: function (id) {
+        this.getModule('showRentalAgreement', arguments);
+    },
+    showRATrackStatus : function(id){
+        this.getModule('showRATrackStatus', arguments);  
+    },
+
+    /* Independent*/
+    rentReceipt: function (id) {
+        this.getModule('rentReceipt', arguments);
+    },
+
+    termsAndConditions: function () {
+        this.getModule('termsAndConditions', arguments);
+    },
+
+    aboutUs: function () {
+        this.getModule('aboutUs', arguments);
+    },
+
+    showTestimonials: function () {
+        this.getModule('showTestimonials', arguments);
+    },
+
+    verifyEmail: function (emailId,token) {
+        this.getModule('verifyEmail', arguments);
+    },
+
+    coupon10k: function (tokenParam) {
+        this.getModule('coupon10k', arguments);
     },
 });
 
