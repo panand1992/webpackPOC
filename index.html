@@ -3,7 +3,6 @@
 <head>
 	<title>Webpack POC</title>
 	<meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <link rel="prefetch" href="bundle.min.js">
 </head>
 <body>
 	<div id="rootContent"></div>
@@ -14,11 +13,11 @@
             styles1.type = 'text/css';
             styles1.href = 'https://www.nobroker.in/mobile/dist/styles/vendorMain.css';
             document.getElementsByTagName('head')[0].appendChild(styles1); 
-            var styles2 = document.createElement('link');
-            styles2.rel = 'stylesheet';
-            styles2.type = 'text/css';
-            styles2.href = 'https://www.nobroker.in/mobile/dist/styles/main.css';
-            document.getElementsByTagName('head')[0].appendChild(styles2); 
+            // var styles2 = document.createElement('link');
+            // styles2.rel = 'stylesheet';
+            // styles2.type = 'text/css';
+            // styles2.href = 'https://www.nobroker.in/mobile/dist/styles/main.css';
+            // document.getElementsByTagName('head')[0].appendChild(styles2); 
         };
         var raf = requestAnimationFrame || mozRequestAnimationFrame || webkitRequestAnimationFrame || msRequestAnimationFrame;
         if (typeof raf !== 'undefined' && raf != null) raf(function() { window.setTimeout(loadDeferredStyles, 0); });
