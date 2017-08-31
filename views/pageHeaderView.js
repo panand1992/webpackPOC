@@ -66,7 +66,7 @@ var pageHeaderView = Marionette.ItemView.extend({
       	e.preventDefault();
 
       	this.hideSideNav();
-      	Backbone.history.navigate('about/about-us',{
+      	Backbone.history.navigate('http://www.nobroker.in/about/about-us',{
         	trigger: true
       	});
     },

@@ -21,24 +21,26 @@ module.exports = {
 	       	}
 	    ]
   	},
-  	externals: {
-  		jquery: 'jQuery'
-	},
   	output: {
 	    path: __dirname + '/',
 	    filename: 'bundle.js'
   	},
   	plugins: [
 	    new webpack.ProvidePlugin({
-	      	_: 'underscore'
+	      	_: 'underscore',
+	      	$: "jquery",
+   			jQuery: "jquery",
+   			"window.jQuery": "jquery",
 	    })
+
   	],
   	resolve: {
   		alias: {
   			//helpersHBS: path.resolve(__dirname, 'helpers/helpers.js'),
-       		handlebars: 'handlebars/dist/handlebars.min.js',
+       		//handlebars: 'handlebars/dist/handlebars.min.js',
+       		//jquery: 'jquery/dist/jquery.min.js',
        		materialize: path.resolve(__dirname, 'lib/materialize.amd.js'),
-       		// 'backbone.modal': path.resolve(__dirname, 'lib/backbone.modal-min.js'),
+       		backboneModal: path.resolve(__dirname, 'lib/backbone.modal-min.js'),
        		//templates: path.resolve(__dirname, 'templates/modals/filterPanel.js')
     	},
     	modules: [__dirname + '/node_modules', __dirname + '/app']

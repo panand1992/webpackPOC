@@ -1,6 +1,6 @@
-var Backbone= require('backbone'); 
+var BackboneModal= require('backboneModal'); 
 
-var FilterPanelModal = Backbone.Modal.extend({
+var FilterPanelModal = BackboneModal.extend({
 	template: require('../../templates/modals/filterPanel.hbs'),
 
 	tagName: 'div',
